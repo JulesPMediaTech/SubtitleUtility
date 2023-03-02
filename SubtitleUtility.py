@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import filedialog
 from tkmacosx import Button
 from pathlib import Path
+import subprocess
+import re
 
 
 class MainWindow(Tk):
@@ -26,6 +28,10 @@ class MainWindow(Tk):
                                                    ("mp4 files", "*.mp4"), ("all files", "*.*"))
                                                )
         print(self.file)
+        self.track_count = subprocess.run(
+            f'MP4Box -tracks "{self.file}"', shell=True)
+        # self.track_count = (re.findall(r'\d+', self.track_count))
+        print(self.track_count)
 
 
 if __name__ == "__main__":
